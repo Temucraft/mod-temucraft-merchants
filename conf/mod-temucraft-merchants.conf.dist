@@ -1,0 +1,34 @@
+[worldserver]
+
+########################################
+# mod-temucraft-merchants
+########################################
+#
+#    Temucraft.Writs.Enable
+#        Description: Craftsman's Writs drop from creatures (data/sql has the writs, their daily quests and the camps of
+#                     the Azeroth Commerce Authority and Durotar Supply and Logistics).
+#        Default:     1
+
+Temucraft.Writs.Enable = 1
+
+#
+#    Temucraft.Writs.DropChance
+#        Description: Percent chance that a creature with loot also drops a writ of its level (from level 15).
+#        Default:     3
+
+Temucraft.Writs.DropChance = 3
+
+#
+#    Temucraft.Crates.Enable
+#        Description: Waylaid Supply Crates drop from creatures; filled with gathered goods they become Sealed Crates
+#                     that the supply quartermasters take for Merchant's Favor.
+#        Default:     1
+
+Temucraft.Crates.Enable = 1
+
+#
+#    Temucraft.Crates.DropChance
+#        Description: Percent chance that a creature with loot also drops a crate of its level (from level 5).
+#        Default:     2
+
+Temucraft.Crates.DropChance = 2
