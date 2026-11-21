@@ -10,6 +10,8 @@
 #include "Chat.h"
 #include "TemucraftModuleText.h"
 #include "Config.h"
+#include "StringConvert.h"
+#include "Tokenize.h"
 #include "Creature.h"
 #include "Item.h"
 #include "LootMgr.h"
@@ -59,7 +61,24 @@ namespace
     };
 
     // Tier of each crate: its index modulo 6 (Apprentice, Journeyman, Expert, Artisan, Master, Grand Master)
-    constexpr std::array<uint8, 6> TIER_CREATURE_LEVEL = { 5, 15, 30, 45, 60, 70 };
+    std::array<uint8, 6> TIER_CREATURE_LEVEL = { 5, 15, 30, 45, 60, 70 };    // Temucraft.Crates.TierCreatureLevels
+    // "a b c ..." -> levels; keeps the defaults when the list doesn't have exactly N numbers
+    template<size_t N>
+    void ParseLevels(std::string const& text, std::array<uint8, N>& out)
+    {
+        std::array<uint8, N> levels{};
+        size_t n = 0;
+        for (std::string_view token : Acore::Tokenize(text, ' ', false))
+        {
+            Optional<uint32> v = Acore::StringTo<uint32>(token);
+            if (!v || n >= N)
+                return;
+            levels[n++] = uint8(std::min<uint32>(*v, 255));
+        }
+        if (n == N)
+            out = levels;
+    }
+
 
     struct CrateSettings
     {
@@ -157,6 +176,7 @@ public:
     {
         crates.enable = sConfigMgr->GetOption<bool>("Temucraft.Crates.Enable", true);
         crates.dropChance = sConfigMgr->GetOption<float>("Temucraft.Crates.DropChance", 2.0f);
+        ParseLevels(sConfigMgr->GetOption<std::string>("Temucraft.Crates.TierCreatureLevels", "5 15 30 45 60 70"), TIER_CREATURE_LEVEL);
     }
 };
 

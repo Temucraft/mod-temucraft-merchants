@@ -32,3 +32,45 @@ Temucraft.Crates.Enable = 1
 #        Default:     2
 
 Temucraft.Crates.DropChance = 2
+
+#
+#    Temucraft.Writs.TierCreatureLevels
+#        Description: Lowest creature level that drops writs of each of the 5 tiers.
+#        Default:     "15 30 45 60 70"
+
+Temucraft.Writs.TierCreatureLevels = "15 30 45 60 70"
+
+#
+#    Temucraft.Writs.ItemFirst
+#        Description: First writ item id. Must match data/sql.
+#        Default:     601710
+
+Temucraft.Writs.ItemFirst = 601710
+
+#
+#    Temucraft.Writs.ItemLast
+#        Description: Last writ item id. Must match data/sql.
+#        Default:     601969
+
+Temucraft.Writs.ItemLast = 601969
+
+#
+#    Temucraft.Writs.CampCreatureFirst
+#        Description: First merchant camp creature (put on the ground at startup). Must match data/sql.
+#        Default:     601971
+
+Temucraft.Writs.CampCreatureFirst = 601971
+
+#
+#    Temucraft.Writs.CampCreatureLast
+#        Description: Last merchant camp creature. Must match data/sql.
+#        Default:     601974
+
+Temucraft.Writs.CampCreatureLast = 601974
+
+#
+#    Temucraft.Crates.TierCreatureLevels
+#        Description: Lowest creature level that drops crates of each of the 6 tiers (Apprentice to Grand Master).
+#        Default:     "5 15 30 45 60 70"
+
+Temucraft.Crates.TierCreatureLevels = "5 15 30 45 60 70"

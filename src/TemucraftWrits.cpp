@@ -12,6 +12,8 @@
  */
 
 #include "Config.h"
+#include "StringConvert.h"
+#include "Tokenize.h"
 #include "Creature.h"
 #include "DatabaseEnv.h"
 #include "Log.h"
@@ -29,11 +31,28 @@
 
 namespace
 {
-    constexpr uint32 WRIT_FIRST = 601710;
-    constexpr uint32 WRIT_LAST = 601969;
+    uint32 WRIT_FIRST = 601710, WRIT_LAST = 601969;       // Temucraft.Writs.ItemFirst / ItemLast
+    uint32 CAMP_FIRST = 601971, CAMP_LAST = 601974;       // Temucraft.Writs.CampCreatureFirst / CampCreatureLast
     // The writs' item level is their tier's minimum character level (data/sql)
     constexpr std::array<uint32, 5> TIER_ITEM_LEVEL = { 10, 20, 35, 60, 70 };
-    constexpr std::array<uint8, 5> TIER_CREATURE_LEVEL = { 15, 30, 45, 60, 70 };
+    std::array<uint8, 5> TIER_CREATURE_LEVEL = { 15, 30, 45, 60, 70 };    // Temucraft.Writs.TierCreatureLevels
+    // "a b c ..." -> levels; keeps the defaults when the list doesn't have exactly N numbers
+    template<size_t N>
+    void ParseLevels(std::string const& text, std::array<uint8, N>& out)
+    {
+        std::array<uint8, N> levels{};
+        size_t n = 0;
+        for (std::string_view token : Acore::Tokenize(text, ' ', false))
+        {
+            Optional<uint32> v = Acore::StringTo<uint32>(token);
+            if (!v || n >= N)
+                return;
+            levels[n++] = uint8(std::min<uint32>(*v, 255));
+        }
+        if (n == N)
+            out = levels;
+    }
+
 
     struct WritSettings
     {
@@ -56,7 +75,7 @@ namespace
 
     void GroundCampNpcs()
     {
-        QueryResult result = WorldDatabase.Query("SELECT `guid` FROM `creature` WHERE `id` BETWEEN 601971 AND 601974");
+        QueryResult result = WorldDatabase.Query("SELECT `guid` FROM `creature` WHERE `id` BETWEEN {} AND {}", CAMP_FIRST, CAMP_LAST);
         if (!result)
             return;
         do
@@ -116,6 +135,11 @@ public:
     {
         writs.enable = sConfigMgr->GetOption<bool>("Temucraft.Writs.Enable", true);
         writs.dropChance = sConfigMgr->GetOption<float>("Temucraft.Writs.DropChance", 3.0f);
+        WRIT_FIRST = sConfigMgr->GetOption<uint32>("Temucraft.Writs.ItemFirst", 601710);
+        WRIT_LAST = sConfigMgr->GetOption<uint32>("Temucraft.Writs.ItemLast", 601969);
+        CAMP_FIRST = sConfigMgr->GetOption<uint32>("Temucraft.Writs.CampCreatureFirst", 601971);
+        CAMP_LAST = sConfigMgr->GetOption<uint32>("Temucraft.Writs.CampCreatureLast", 601974);
+        ParseLevels(sConfigMgr->GetOption<std::string>("Temucraft.Writs.TierCreatureLevels", "15 30 45 60 70"), TIER_CREATURE_LEVEL);
     }
 
     void OnStartup() override
