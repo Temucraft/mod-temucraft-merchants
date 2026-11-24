@@ -22,5 +22,7 @@ INSERT INTO `itemextendedcost_dbc` (`ID`, `HonorPoints`, `ArenaPoints`, `ArenaBr
 
 -- currencytypes_dbc: 1 row(s) mod-temucraft-merchants
 DELETE FROM `currencytypes_dbc` WHERE `ID` IN (@Currency);
+-- BitIndex is the bit in the player's known currencies (1 to 64, one per currency). 0 is not a bit: the Favor was
+-- stored but never shown in the currency tab. 26 is free in the shipped CurrencyTypes.dbc.
 INSERT INTO `currencytypes_dbc` (`ID`, `ItemID`, `CategoryID`, `BitIndex`) VALUES
-(@Currency,@Favor,1,0);
+(@Currency,@Favor,1,26);

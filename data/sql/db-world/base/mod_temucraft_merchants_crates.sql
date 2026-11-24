@@ -1,5 +1,6 @@
 -- mod-temucraft-merchants: Waylaid Supply Crates. They drop like writs; filled with gathered goods they become Sealed
--- Crates, which the supply quartermasters take (repeatable quests) for Merchant's Favor. Re-runnable.
+-- Crates, which the supply quartermasters take (repeatable quests) for Merchant's Favor and some reputation with the
+-- camp's faction (the Favor rewards need reputation). Re-runnable.
 SET @Favor := 601700;
 SET @Crate := 601980;
 SET @CrateQuest := 602010;
@@ -40,13 +41,13 @@ INSERT INTO `item_template` (`entry`, `class`, `subclass`, `SoundOverrideSubclas
 (@Crate+33, 15, 4, -1, 'Sealed Artisan Crate', 12331, 2, 1, 0, 0, 0, 45, 0, 20, 0, 'A filled supply crate. Supply quartermasters pay Merchant\'s Favor for it.', -1, '', 0, 0, 0, 0),
 (@Crate+34, 15, 4, -1, 'Sealed Master Crate', 12331, 2, 1, 0, 0, 0, 60, 0, 20, 0, 'A filled supply crate. Supply quartermasters pay Merchant\'s Favor for it.', -1, '', 0, 0, 0, 0),
 (@Crate+35, 15, 4, -1, 'Sealed Grand Master Crate', 12331, 2, 1, 0, 0, 0, 70, 0, 20, 0, 'A filled supply crate. Supply quartermasters pay Merchant\'s Favor for it.', -1, '', 0, 0, 0, 0);
-INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `Flags`, `RewardItem1`, `RewardAmount1`, `LogTitle`, `LogDescription`, `QuestDescription`, `QuestCompletionLog`, `RequiredItemId1`, `RequiredItemCount1`, `VerifiedBuild`) VALUES
-(@CrateQuest, 2, -1, 5, 0, @Favor, 5, 'Sealed Apprentice Crate', 'Hand over a Sealed Apprentice Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Apprentice Crate.', @CrateQuest, 1, 0),
-(@CrateQuest+1, 2, -1, 15, 0, @Favor, 10, 'Sealed Journeyman Crate', 'Hand over a Sealed Journeyman Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Journeyman Crate.', @CrateQuest+1, 1, 0),
-(@CrateQuest+2, 2, -1, 30, 0, @Favor, 15, 'Sealed Expert Crate', 'Hand over a Sealed Expert Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Expert Crate.', @CrateQuest+2, 1, 0),
-(@CrateQuest+3, 2, -1, 45, 0, @Favor, 20, 'Sealed Artisan Crate', 'Hand over a Sealed Artisan Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Artisan Crate.', @CrateQuest+3, 1, 0),
-(@CrateQuest+4, 2, -1, 60, 0, @Favor, 30, 'Sealed Master Crate', 'Hand over a Sealed Master Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Master Crate.', @CrateQuest+4, 1, 0),
-(@CrateQuest+5, 2, -1, 70, 0, @Favor, 40, 'Sealed Grand Master Crate', 'Hand over a Sealed Grand Master Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Grand Master Crate.', @CrateQuest+5, 1, 0);
+INSERT INTO `quest_template` (`ID`, `QuestType`, `QuestLevel`, `MinLevel`, `Flags`, `RewardItem1`, `RewardAmount1`, `RewardFactionID1`, `RewardFactionValue1`, `RewardFactionOverride1`, `RewardFactionID2`, `RewardFactionValue2`, `RewardFactionOverride2`, `LogTitle`, `LogDescription`, `QuestDescription`, `QuestCompletionLog`, `RequiredItemId1`, `RequiredItemCount1`, `VerifiedBuild`) VALUES
+(@CrateQuest, 2, -1, 5, 0, @Favor, 5, 2233, 0, 2500, 2234, 0, 2500, 'Sealed Apprentice Crate', 'Hand over a Sealed Apprentice Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Apprentice Crate.', @CrateQuest, 1, 0),
+(@CrateQuest+1, 2, -1, 15, 0, @Favor, 10, 2233, 0, 5000, 2234, 0, 5000, 'Sealed Journeyman Crate', 'Hand over a Sealed Journeyman Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Journeyman Crate.', @CrateQuest+1, 1, 0),
+(@CrateQuest+2, 2, -1, 30, 0, @Favor, 15, 2233, 0, 7500, 2234, 0, 7500, 'Sealed Expert Crate', 'Hand over a Sealed Expert Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Expert Crate.', @CrateQuest+2, 1, 0),
+(@CrateQuest+3, 2, -1, 45, 0, @Favor, 20, 2233, 0, 10000, 2234, 0, 10000, 'Sealed Artisan Crate', 'Hand over a Sealed Artisan Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Artisan Crate.', @CrateQuest+3, 1, 0),
+(@CrateQuest+4, 2, -1, 60, 0, @Favor, 30, 2233, 0, 12500, 2234, 0, 12500, 'Sealed Master Crate', 'Hand over a Sealed Master Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Master Crate.', @CrateQuest+4, 1, 0),
+(@CrateQuest+5, 2, -1, 70, 0, @Favor, 40, 2233, 0, 15000, 2234, 0, 15000, 'Sealed Grand Master Crate', 'Hand over a Sealed Grand Master Crate.', 'Filled supply crates keep the camps going. Bring me a sealed one and the Favor is yours.', 'Return with a Sealed Grand Master Crate.', @CrateQuest+5, 1, 0);
 INSERT INTO `quest_template_addon` (`ID`, `SpecialFlags`) VALUES (@CrateQuest, 1), (@CrateQuest+1, 1), (@CrateQuest+2, 1), (@CrateQuest+3, 1), (@CrateQuest+4, 1), (@CrateQuest+5, 1);
 INSERT INTO `creature_queststarter` (`id`, `quest`) VALUES
 (@Camp, @CrateQuest),(@Camp+2, @CrateQuest),

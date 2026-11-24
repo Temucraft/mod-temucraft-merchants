@@ -3,7 +3,7 @@
 Two supply factions, the Azeroth Commerce Authority (Three Corners, Redridge) and Durotar Supply and Logistics (outside the Crossroads).
 
 - **Craftsman's Writs:** 257 rare drops (6 per profession per tier, Journeyman to Grand Master) that start a daily quest: bring the crafted item to a quartermaster for reputation, Merchant's Favor and money.
-- **Waylaid Supply Crates:** drops; filled with herbs, ore, leather or cloth they become Sealed Crates, traded for Merchant's Favor.
+- **Waylaid Supply Crates:** drops; filled with herbs, ore, leather or cloth they become Sealed Crates, traded for Merchant's Favor and some reputation.
 - **Merchant's Favor** (currency tab) buys recipes, the Traveler's Tundra Mammoth, a ram, a kodo and pets; each reward needs reputation (Friendly to Exalted by price).
 - A neutral auctioneer at each camp.
 
